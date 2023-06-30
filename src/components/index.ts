@@ -4,7 +4,7 @@ export const StyledHeader = styled.div`
     display: flex;
     flex-direction: row;
     gap: 15vw;
-    width: 90vw;
+    width: max-content;
     margin: auto auto;
     margin-top: 2vh;
     align-items: center;
