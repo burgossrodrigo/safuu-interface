@@ -10,10 +10,12 @@ import { WagmiConfig, createConfig, configureChains } from 'wagmi'
 import { bsc, bscTestnet } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import background from './assets/luxury-plain-green-gradient-abstract-studio-background-empty-room-with-space-your-text-picture.jpg'
+
+// import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
+// import { InjectedConnector } from 'wagmi/connectors/injected'
+// import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+// import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 
 import {
   darkTheme,
@@ -50,7 +52,8 @@ const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
   padding: 0;
-  background: #171819;
+  background-image: url(${background});
+  background-size: cover;
   width: 100%
 }
 `;

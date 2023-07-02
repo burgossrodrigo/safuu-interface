@@ -28,4 +28,5 @@ export const HorizontalDiv = styled.div`
     flex-direction: row;
     width: 80vw;
     margin: 2vh auto;
+    opacity: 0.9;
 `

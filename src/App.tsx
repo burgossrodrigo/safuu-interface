@@ -27,11 +27,11 @@ function App() {
         default: '#303030', // slightly lighter dark gray
       },
       primary: {
-        main: '##0B890B', // primary color
+        main: '#0B890B', // primary color
         contrastText: '#FFFFFF', // white
       },
       secondary: {
-        main: '##FF6501', // secondary color
+        main: '#FF6501', // secondary color
         contrastText: '#FFFFFF', // white
       },
       success: {
