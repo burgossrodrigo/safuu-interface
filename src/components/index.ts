@@ -17,11 +17,17 @@ export const AppWrapper = styled.div`
     margin: auto auto;
 `
 
-export const RowWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 2vw;
-`
+export const RowWrapper = styled.div<{ gap: any, width: any }>`
+position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: auto auto;
+  width: ${(props: any) => props.width};
+  gap: ${(props: any) => props.gap};
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
 
 export const HorizontalDiv = styled.div`
     display: flex;

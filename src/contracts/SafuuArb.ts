@@ -3,10 +3,10 @@ import { ethers } from 'ethers'
 import { ETHER, SAFUU_ARB, PROVIDER } from "../constants"
 import SafuuArb from "../ABI/SafuuArb.json"
 
-const useSafuuArb = (signer: any, chainId: number) => {
+const useSafuuArb = (signer: any, chainId: number, provider: any) => {
 
     const safuuArbInstance = () => {
-        const contract = new ethers.Contract(SAFUU_ARB[chainId as keyof typeof SAFUU_ARB], SafuuArb.abi, PROVIDER[chainId as keyof typeof SAFUU_ARB])
+        const contract = new ethers.Contract(SAFUU_ARB[chainId as keyof typeof SAFUU_ARB], SafuuArb.abi, provider)
         return contract
     }
 

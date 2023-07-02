@@ -48,6 +48,12 @@ const config = createConfig({
   webSocketPublicClient,
 })
 
+declare global {
+  interface Window {
+    ethereum: import('ethers').BrowserProvider;
+  }
+}
+
 const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;

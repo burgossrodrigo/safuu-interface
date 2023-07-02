@@ -5,11 +5,15 @@ import BNBIcon from '../assets/bnb-banner.png'
 import { useContext, useState } from "react"
 import { AppContext } from "../state"
 import useSafuuArb from "../contracts/SafuuArb"
+import { ETHER, PROVIDER, SAFUUGO_ADDRESS, SAFUU_ARB } from "../constants"
+import { useAccount, useNetwork } from "wagmi"
+import usesafuuGo from "../contracts/SafuuGo"
+import BigNumberInput from "./BigNumberInput"
+import PercentageButtons from "./PercentageButtons"
 
 const StyledCard = styled(Card)`
 margin: 10vh auto;
 width: 35vw;
-
 `
 
 const General = () => {
@@ -22,7 +26,13 @@ const General = () => {
     const { tokenData } = state;
     const { balance, allowance } = tokenData;
 
-    const safuuArb = useSafuuArb()
+    const { isConnected } = useAccount()
+
+    const safuuArb = useSafuuArb(window?.ethereum, Number(window?.ethereum?._network?.chainId), PROVIDER[56])
+    const safuuGo = usesafuuGo(window?.ethereum, SAFUUGO_ADDRESS, PROVIDER[56])
+
+    const { approve } = safuuGo
+    const { stake } = safuuArb
 
     const isAmountGreaterThanAllowance = Number(deposit) >= Number(allowance) / 10 ** 18;
     const isAmountSmallerThanAllowance = Number(deposit) < Number(allowance) / 10 ** 18;
@@ -38,7 +48,7 @@ const General = () => {
     const handleApproveClick = async () => {
         setIsLoading(true);
         try {
-            const hash = await approve(stakingAddress, Number(deposit))
+            const hash = await approve(SAFUU_ARB[Number(window?.ethereum?._network?.chainId) as keyof typeof SAFUU_ARB], Number(deposit))
             setHash(hash)
             console.log(hash, 'hash')
         } catch (error: any) {
@@ -46,7 +56,19 @@ const General = () => {
         } finally {
             setIsLoading(false);
           }
-    };
+    }
+
+    const handleDepositClick = async () => {
+        setIsLoading(true);
+        try {
+            const hash = await stake(ETHER[56], BigInt(deposit))
+            setHash(hash)
+        } catch (error: any) {
+            console.log(error.message, 'for approve');
+        } finally {
+            setIsLoading(false);
+          }
+    }
 
     return (
         <HorizontalDiv>
@@ -59,6 +81,12 @@ const General = () => {
                 />
                 <CardContent>
                     <Chip size='medium' label={`Total balance: ${Number(balance).toFixed(2)}`} />
+                </CardContent>
+                <CardContent>
+                    <PercentageButtons balance={balance} onDepositChange={handleDepositChange} />
+                </CardContent>
+                <CardContent>
+                    <BigNumberInput balance={balance} onDepositChange={handleInoutDepositChange} />
                 </CardContent>
                 <CardContent> 
                 <Chip size='medium' label={`Total rewards: ${Number(balance).toFixed(2)}`} />
